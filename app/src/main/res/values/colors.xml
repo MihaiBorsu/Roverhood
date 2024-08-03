@@ -1,0 +1,14 @@
+<resources>
+    <!-- Define colorPrimary -->
+    <color name="colorPrimary">#6200EE</color>
+    <!-- Define colorPrimaryVariant -->
+    <color name="colorPrimaryVariant">#3700B3</color>
+    <!-- Define colorOnPrimary -->
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <!-- Define colorSecondary -->
+    <color name="colorSecondary">#03DAC6</color>
+    <!-- Define colorSecondaryVariant -->
+    <color name="colorSecondaryVariant">#018786</color>
+    <!-- Define colorOnSecondary -->
+    <color name="colorOnSecondary">#000000</color>
+</resources>

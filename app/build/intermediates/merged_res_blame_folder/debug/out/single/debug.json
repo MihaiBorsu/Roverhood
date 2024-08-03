@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "com.example.mystaticimageapp-merged_res-25:/layout_activity_main.xml.flat",
+        "source": "com.example.mystaticimageapp-main-27:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.mystaticimageapp-merged_res-25:/drawable_static_image.png.flat",
+        "source": "com.example.mystaticimageapp-main-27:/drawable/static_image.png"
+    },
+    {
+        "merged": "com.example.mystaticimageapp-merged_res-25:/mipmap_ic_launcher_round.png.flat",
+        "source": "com.example.mystaticimageapp-main-27:/mipmap/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.example.mystaticimageapp-merged_res-25:/mipmap_ic_launcher.png.flat",
+        "source": "com.example.mystaticimageapp-main-27:/mipmap/ic_launcher.png"
+    }
+]
