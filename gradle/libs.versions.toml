@@ -1,5 +1,6 @@
 [versions]
 agp = "8.5.1"
+coreKtx = "1.13.1"
 googleApiClientAndroid = "1.32.1"
 googleApiServicesPhotoslibrary = "v1-rev112-1.25.0"
 junit = "4.13.2"
@@ -13,6 +14,7 @@ navigationUi = "2.6.0"
 playServicesAuth = "21.2.0"
 
 [libraries]
+core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 google-api-client-android = { module = "com.google.api-client:google-api-client-android", version.ref = "googleApiClientAndroid" }
 google-api-services-photoslibrary = { module = "com.google.apis:google-api-services-photoslibrary", version.ref = "googleApiServicesPhotoslibrary" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

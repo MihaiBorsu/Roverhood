@@ -44,6 +44,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation(libs.core.ktx)
 //    implementation(libs.play.services.auth)
 //    implementation(libs.google.api.client.android)
 //    implementation(libs.google.api.services.photoslibrary)

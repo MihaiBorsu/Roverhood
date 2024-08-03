@@ -1,5 +1,6 @@
 package com.example.roverhood;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,19 +24,37 @@ public class RoverFeed extends Fragment {
             Bundle savedInstanceState
     ) {
         float density = getActivity().getResources().getDisplayMetrics().density;
-        int dpValue = (int) ( 10 * density);
+        int dpValue = (int) (density);
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
-        params.setMargins(dpValue, dpValue, dpValue, dpValue);
+        params.setMargins(10*dpValue, 10*dpValue, 10*dpValue, 10*dpValue);
+
+        LinearLayout.LayoutParams dividerParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                (int) ( 4 * density)
+        );
+        dividerParams.setMargins(10*dpValue, 10*dpValue, 10*dpValue, 10*dpValue);
+
+        LinearLayout.LayoutParams dateParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        dateParams.setMargins(10*dpValue, 10*dpValue, 10*dpValue, 0*dpValue);
 
         //binding = RoverFeedBinding.inflate(inflater, container, false);
         View mContainer = inflater.inflate(R.layout.rover_feed, null);
         View linearLayout = mContainer.findViewById(R.id.info);
 
         for(int i = 0; i<3; i++) {
+            TextView date = new TextView(getActivity());
+            date.setText("19 iunie 2024  -  14:32");
+            date.setLayoutParams(dateParams);
+            date.setTypeface(date.getTypeface(), Typeface.BOLD);
+            ((LinearLayout) linearLayout).addView(date);
+
             TextView postText = new TextView(getActivity());
             postText.setText("Este o zi frumoasa astazi la Roverhood!");
             postText.setLayoutParams(params);
@@ -55,12 +74,13 @@ public class RoverFeed extends Fragment {
             ((LinearLayout) linearLayout).addView(imageView);
 
             //Divider Setup
-            View divider = new View(getActivity());
-            divider.setLayoutParams(new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    (int) ( 4 * density)));
-            divider.setBackgroundResource(R.color.light_purple);
-            ((LinearLayout) linearLayout).addView(divider);
+            androidx.cardview.widget.CardView divider = new androidx.cardview.widget.CardView(getActivity());
+            divider.setLayoutParams(dividerParams);
+            divider.setCardBackgroundColor(getResources().getColor(R.color.light_purple));
+            divider.setRadius((int) ( 5 * density));
+            if(i!=2) {
+                ((LinearLayout) linearLayout).addView(divider);
+            }
         }
 
         return mContainer;
