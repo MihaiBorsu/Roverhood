@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.mystaticimageapp-mergeDebugResources-23:/values-b+es+419/values-b+es+419.xml",
+            "outputFile": "com.example.mystaticimageapp-mergeDebugResources-24:/values-b+es+419/values-b+es+419.xml",
             "map": [
                 {
                     "source": "/home/mihai/.gradle/caches/transforms-3/43eb2bae15b10e9bc0163cf6b6eb0fb8/transformed/material-1.5.0/res/values-b+es+419/values-b+es+419.xml",
