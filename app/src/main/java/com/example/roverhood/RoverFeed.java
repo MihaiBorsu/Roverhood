@@ -39,6 +39,7 @@ public class RoverFeed extends Fragment {
 
         for(Post post : posts)
         {
+            linearLayout.addView(post.getUserView());
             linearLayout.addView(post.getDateView());
             linearLayout.addView(post.getDescriptionView());
             linearLayout.addView(post.getImageView());

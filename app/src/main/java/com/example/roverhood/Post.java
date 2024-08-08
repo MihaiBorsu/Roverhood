@@ -19,6 +19,7 @@ public class Post {
     int dpValue = 0;
     LinearLayout.LayoutParams params;
     LinearLayout.LayoutParams dividerParams;
+    LinearLayout.LayoutParams userParams;
     LinearLayout.LayoutParams dateParams;
 
     public Post(Fragment fragment, String date, String user, String description, int picture) {
@@ -52,15 +53,29 @@ public class Post {
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
-        dateParams.setMargins(10*dpValue, 10*dpValue, 10*dpValue, 0);
+        dateParams.setMargins(10*dpValue, 0*dpValue, 10*dpValue, 0);
+
+        userParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        userParams.setMargins(10*dpValue, 10*dpValue, 10*dpValue, 0);
+
     }
 
+    public View getUserView() {
+        TextView userView = new TextView(activeFragment.getActivity());
+        userView.setText(this.user);
+        userView.setLayoutParams(userParams);
+        userView.setTypeface(userView.getTypeface(), Typeface.BOLD);
+        return userView;
+    }
 
     public View getDateView() {
         TextView dateView = new TextView(activeFragment.getActivity());
         dateView.setText(this.date);
         dateView.setLayoutParams(dateParams);
-        dateView.setTypeface(dateView.getTypeface(), Typeface.BOLD);
+        dateView.setTypeface(dateView.getTypeface(), Typeface.ITALIC);
         return dateView;
     }
 
