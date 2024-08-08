@@ -71,8 +71,6 @@ public class MainActivity extends AppCompatActivity {
 
         if(onFeed)
         {
-            MenuItem item1 = optionsMenu.findItem(R.id.text_menu);
-            item1.setVisible(true);
             MenuItem item2 = optionsMenu.findItem(R.id.checkable_menu);
             item2.setVisible(true);
         }
@@ -101,8 +99,6 @@ public class MainActivity extends AppCompatActivity {
     public void onLogIn(View view) {
         Navigation.findNavController(view).navigate(R.id.action_logIn_to_RoverFeed);
         floatingButton.setVisibility(View.VISIBLE);
-        MenuItem item1 = optionsMenu.findItem(R.id.text_menu);
-        item1.setVisible(true);
         MenuItem item2 = optionsMenu.findItem(R.id.checkable_menu);
         item2.setVisible(true);
 
@@ -112,8 +108,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void onLogOut(View view) {
         floatingButton.setVisibility(View.INVISIBLE);
-        MenuItem item1 = optionsMenu.findItem(R.id.text_menu);
-        item1.setVisible(false);
         MenuItem item2 = optionsMenu.findItem(R.id.checkable_menu);
         item2.setVisible(false);
         Navigation.findNavController(view).navigate(R.id.action_RoverFeed_to_LogIn);
@@ -123,8 +117,6 @@ public class MainActivity extends AppCompatActivity {
         floatingButton.setVisibility(View.INVISIBLE);
         Button temp = findViewById(R.id.buttonLogOut);
         Navigation.findNavController(temp).navigate(R.id.action_RoverFeed_to_LogIn);
-        MenuItem item1 = optionsMenu.findItem(R.id.text_menu);
-        item1.setVisible(false);
         MenuItem item2 = optionsMenu.findItem(R.id.checkable_menu);
         item2.setVisible(false);
     }
