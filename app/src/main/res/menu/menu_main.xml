@@ -8,5 +8,5 @@
         android:title="Switch"
         app:actionLayout="@layout/use_switch"
         app:showAsAction="always"
-        android:visible="true"/>
+        android:visible="false"/>
 </menu>
