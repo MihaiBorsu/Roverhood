@@ -16,9 +16,12 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.roverhood.databinding.LogInBinding;
 import com.example.roverhood.databinding.RoverFeedBinding;
 
+import java.util.Vector;
+
 public class RoverFeed extends Fragment {
 
     private RoverFeedBinding binding;
+    Vector<Post> posts = new Vector<Post>();
     MainActivity main;
 
     @Override
@@ -29,66 +32,45 @@ public class RoverFeed extends Fragment {
         binding = RoverFeedBinding.inflate(inflater, container, false);
         main = (MainActivity) getParentFragment().getActivity();
         main.onFeed = true;
-
-        float density = getActivity().getResources().getDisplayMetrics().density;
-        int dpValue = (int) (density);
-
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        params.setMargins(10*dpValue, 10*dpValue, 10*dpValue, 10*dpValue);
-
-        LinearLayout.LayoutParams dividerParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                (int) ( 4 * density)
-        );
-        dividerParams.setMargins(10*dpValue, 10*dpValue, 10*dpValue, 10*dpValue);
-
-        LinearLayout.LayoutParams dateParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        dateParams.setMargins(10*dpValue, 10*dpValue, 10*dpValue, 0*dpValue);
         ;
-        View linearLayout = binding.getRoot().findViewById(R.id.info);
+        LinearLayout linearLayout = binding.getRoot().findViewById(R.id.info);
 
-        for(int i = 0; i<3; i++) {
-            TextView date = new TextView(getActivity());
-            date.setText("19 iunie 2024  -  14:32");
-            date.setLayoutParams(dateParams);
-            date.setTypeface(date.getTypeface(), Typeface.BOLD);
-            ((LinearLayout) linearLayout).addView(date);
+        populatePosts();
 
-            TextView postText = new TextView(getActivity());
-            postText.setText("Este o zi frumoasa astazi la Roverhood!");
-            postText.setLayoutParams(params);
-            ((LinearLayout) linearLayout).addView(postText);
-
-            //ImageView Setup
-            ImageView imageView = new ImageView(getActivity());
-            if (i == 0)
-                imageView.setImageResource(R.drawable.img1);
-            else if (i == 1)
-                imageView.setImageResource(R.drawable.img2);
-            else
-                imageView.setImageResource(R.drawable.img3);
-            imageView.setId(i);
-            imageView.setLayoutParams(params);
-            imageView.setAdjustViewBounds(true);
-            ((LinearLayout) linearLayout).addView(imageView);
-
-            //Divider Setup
-            androidx.cardview.widget.CardView divider = new androidx.cardview.widget.CardView(getActivity());
-            divider.setLayoutParams(dividerParams);
-            divider.setCardBackgroundColor(getResources().getColor(R.color.light_purple));
-            divider.setRadius((int) ( 5 * density));
-            if(i!=2) {
-                ((LinearLayout) linearLayout).addView(divider);
+        for(Post post : posts)
+        {
+            linearLayout.addView(post.getDateView());
+            linearLayout.addView(post.getDescriptionView());
+            linearLayout.addView(post.getImageView());
+            if(post != posts.lastElement()) {
+                linearLayout.addView(post.getDividerView());
             }
         }
 
         return binding.getRoot();
+    }
+
+    private void populatePosts() {
+        Post temp = new Post(this,
+                "21 iunie 2024  -  00:17","David",
+                "Este o zi frumoasa astazi la Roverhood!",
+                R.drawable.img1);
+
+        Post temp2 = new Post(this,
+                "20 iunie 2024  -  15:12",
+                "David",
+                "Vaii.. nu va pot spune! Am fost recent la popa la biserica, si i-am marturisit ca nu am fost un boier cuminte. Am alergat numai dupa bani, si sper sincer sa scap cu basma curata!",
+                R.drawable.img2);
+
+        Post temp3 = new Post(this,
+                "19 iunie 2024  -  14:32",
+                "David",
+                "Dupa atata asteptare, in sfarsit s-a maritat si fiica boierului!",
+                R.drawable.img3);
+
+        posts.add(temp);
+        posts.add(temp2);
+        posts.add(temp3);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
