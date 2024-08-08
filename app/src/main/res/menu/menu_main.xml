@@ -2,9 +2,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.roverhood.MainActivity">
+
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:id="@+id/text_menu"
+        android:title="only announcements"
+        app:actionViewClass="android.widget.inline.InlineContentView"
+        app:showAsAction="ifRoom"
+        android:enabled="false"
+        android:visible="false" />
+
+    <item
+        android:id="@+id/checkable_menu"
+        android:title="Switch"
+        app:actionLayout="@layout/use_switch"
+        app:showAsAction="always"
+        android:visible="false"/>
 </menu>

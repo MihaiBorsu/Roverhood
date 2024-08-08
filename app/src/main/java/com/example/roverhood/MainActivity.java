@@ -5,15 +5,21 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.NotificationCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -22,13 +28,23 @@ import com.example.roverhood.databinding.ActivityMainBinding;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+    private FloatingActionButton floatingButton;
+    private Menu optionsMenu;
+    public boolean onlyAnnouncements = false;
+    public boolean onFeed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,45 +56,76 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(binding.toolbar);
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+        appBarConfiguration = new AppBarConfiguration.Builder(R.id.LogIn, R.id.RoverFeed).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAnchorView(R.id.fab)
-                        .setAction("Action", null).show();
-            }
-        });
+        floatingButton = (FloatingActionButton) findViewById(R.id.fab);
+        floatingButton.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        optionsMenu = menu;
+
+        if(onFeed)
+        {
+            MenuItem item1 = optionsMenu.findItem(R.id.text_menu);
+            item1.setVisible(true);
+            MenuItem item2 = optionsMenu.findItem(R.id.checkable_menu);
+            item2.setVisible(true);
+        }
+
+        MenuItem checkable = menu.findItem(R.id.checkable_menu);
+        checkable.setActionView(R.layout.use_switch);
+        final SwitchCompat sw = (SwitchCompat) menu.findItem(R.id.checkable_menu).getActionView().findViewById(R.id.switch2);
+
+        sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    floatingButton.setVisibility(View.INVISIBLE);
+                    onlyAnnouncements = true;
+                }
+                else {
+                    floatingButton.setVisibility(View.VISIBLE);
+                    onlyAnnouncements = false;
+                }
+            }
+        });
+
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public void onLogIn(View view) {
+        Navigation.findNavController(view).navigate(R.id.action_logIn_to_RoverFeed);
+        floatingButton.setVisibility(View.VISIBLE);
+        MenuItem item1 = optionsMenu.findItem(R.id.text_menu);
+        item1.setVisible(true);
+        MenuItem item2 = optionsMenu.findItem(R.id.checkable_menu);
+        item2.setVisible(true);
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        final SwitchCompat sw = (SwitchCompat) optionsMenu.findItem(R.id.checkable_menu).getActionView().findViewById(R.id.switch2);
+        sw.setChecked(false);
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
+    public void onLogOut(View view) {
+        floatingButton.setVisibility(View.INVISIBLE);
+        MenuItem item1 = optionsMenu.findItem(R.id.text_menu);
+        item1.setVisible(false);
+        MenuItem item2 = optionsMenu.findItem(R.id.checkable_menu);
+        item2.setVisible(false);
+        Navigation.findNavController(view).navigate(R.id.action_RoverFeed_to_LogIn);
+    }
+
+    public void onCreatePost(View view) {
+        floatingButton.setVisibility(View.INVISIBLE);
+        Button temp = findViewById(R.id.buttonLogOut);
+        Navigation.findNavController(temp).navigate(R.id.action_RoverFeed_to_LogIn);
+        MenuItem item1 = optionsMenu.findItem(R.id.text_menu);
+        item1.setVisible(false);
+        MenuItem item2 = optionsMenu.findItem(R.id.checkable_menu);
+        item2.setVisible(false);
     }
 }

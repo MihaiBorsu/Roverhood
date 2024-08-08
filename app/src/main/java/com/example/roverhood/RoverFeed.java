@@ -11,18 +11,25 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.roverhood.databinding.LogInBinding;
 import com.example.roverhood.databinding.RoverFeedBinding;
 
 public class RoverFeed extends Fragment {
 
     private RoverFeedBinding binding;
+    MainActivity main;
 
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
+        binding = RoverFeedBinding.inflate(inflater, container, false);
+        main = (MainActivity) getParentFragment().getActivity();
+        main.onFeed = true;
+
         float density = getActivity().getResources().getDisplayMetrics().density;
         int dpValue = (int) (density);
 
@@ -43,10 +50,8 @@ public class RoverFeed extends Fragment {
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
         dateParams.setMargins(10*dpValue, 10*dpValue, 10*dpValue, 0*dpValue);
-
-        //binding = RoverFeedBinding.inflate(inflater, container, false);
-        View mContainer = inflater.inflate(R.layout.rover_feed, null);
-        View linearLayout = mContainer.findViewById(R.id.info);
+        ;
+        View linearLayout = binding.getRoot().findViewById(R.id.info);
 
         for(int i = 0; i<3; i++) {
             TextView date = new TextView(getActivity());
@@ -62,13 +67,13 @@ public class RoverFeed extends Fragment {
 
             //ImageView Setup
             ImageView imageView = new ImageView(getActivity());
-            if(i == 0)
+            if (i == 0)
                 imageView.setImageResource(R.drawable.img1);
+            else if (i == 1)
+                imageView.setImageResource(R.drawable.img2);
             else
-                if(i == 1)
-                    imageView.setImageResource(R.drawable.img2);
-                else
-                    imageView.setImageResource(R.drawable.img3);
+                imageView.setImageResource(R.drawable.img3);
+            imageView.setId(i);
             imageView.setLayoutParams(params);
             imageView.setAdjustViewBounds(true);
             ((LinearLayout) linearLayout).addView(imageView);
@@ -83,7 +88,7 @@ public class RoverFeed extends Fragment {
             }
         }
 
-        return mContainer;
+        return binding.getRoot();
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -92,7 +97,9 @@ public class RoverFeed extends Fragment {
 
     @Override
     public void onDestroyView() {
+        main.onFeed = false;
         super.onDestroyView();
         binding = null;
+
     }
 }

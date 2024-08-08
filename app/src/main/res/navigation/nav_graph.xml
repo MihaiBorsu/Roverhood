@@ -3,11 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/RoverFeed">
+    app:startDestination="@id/LogIn">
 
     <fragment
         android:id="@+id/RoverFeed"
         android:name="com.example.roverhood.RoverFeed"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/rover_feed"/>
+        tools:layout="@layout/rover_feed">
+        <action
+            android:id="@+id/action_RoverFeed_to_LogIn"
+            app:destination="@id/LogIn" />
+    </fragment>
+    <fragment
+        android:id="@+id/LogIn"
+        android:name="com.example.roverhood.LogIn"
+        android:label="Log In"
+        tools:layout="@layout/log_in" >
+        <action
+            android:id="@+id/action_logIn_to_RoverFeed"
+            app:destination="@id/RoverFeed" />
+    </fragment>
 </navigation>
