@@ -35,7 +35,7 @@ public class LogIn extends Fragment {
 
         if(loggedIn) {
             NavHostFragment.findNavController(LogIn.this)
-                    .navigate(R.id.action_logIn_to_RoverFeed);
+                    .navigate(R.id.action_LogIn_to_loading);
         }
 
         return binding.getRoot();

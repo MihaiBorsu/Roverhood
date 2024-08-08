@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_RoverFeed_to_LogIn"
             app:destination="@id/LogIn" />
+        <action
+            android:id="@+id/action_RoverFeed_to_loading"
+            app:destination="@id/loading" />
     </fragment>
     <fragment
         android:id="@+id/LogIn"
@@ -20,7 +23,16 @@
         android:label="Log In"
         tools:layout="@layout/log_in" >
         <action
-            android:id="@+id/action_logIn_to_RoverFeed"
+            android:id="@+id/action_LogIn_to_loading"
+            app:destination="@id/loading" />
+    </fragment>
+    <fragment
+        android:id="@+id/loading"
+        android:name="com.example.roverhood.Loading"
+        android:label="loading"
+        tools:layout="@layout/loading" >
+        <action
+            android:id="@+id/action_loading_to_RoverFeed"
             app:destination="@id/RoverFeed" />
     </fragment>
 </navigation>

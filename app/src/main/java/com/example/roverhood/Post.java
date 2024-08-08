@@ -101,4 +101,10 @@ public class Post {
         dividerView.setRadius( 5 * dpValue);
         return dividerView;
     }
+
+    public boolean isAnnouncement() {
+        if(user == "Admin")
+            return true;
+        return false;
+    }
 }

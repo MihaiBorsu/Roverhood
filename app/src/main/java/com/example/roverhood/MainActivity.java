@@ -85,10 +85,26 @@ public class MainActivity extends AppCompatActivity {
                 if (isChecked) {
                     floatingButton.setVisibility(View.INVISIBLE);
                     onlyAnnouncements = true;
+
+                    if(onFeed) {
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        Fragment fragment = fragmentManager.getPrimaryNavigationFragment();
+
+                        NavHostFragment.findNavController(fragment)
+                                .navigate(R.id.action_RoverFeed_to_loading);
+                    }
                 }
                 else {
                     floatingButton.setVisibility(View.VISIBLE);
                     onlyAnnouncements = false;
+
+                    if(onFeed) {
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        Fragment fragment = fragmentManager.getPrimaryNavigationFragment();
+
+                        NavHostFragment.findNavController(fragment)
+                                .navigate(R.id.action_RoverFeed_to_loading);
+                    }
                 }
             }
         });
@@ -97,19 +113,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onLogIn(View view) {
-        Navigation.findNavController(view).navigate(R.id.action_logIn_to_RoverFeed);
-        floatingButton.setVisibility(View.VISIBLE);
+
         MenuItem item2 = optionsMenu.findItem(R.id.checkable_menu);
         item2.setVisible(true);
 
         final SwitchCompat sw = (SwitchCompat) optionsMenu.findItem(R.id.checkable_menu).getActionView().findViewById(R.id.switch2);
         sw.setChecked(false);
+        Navigation.findNavController(view).navigate(R.id.action_LogIn_to_loading);
+        floatingButton.setVisibility(View.VISIBLE);
     }
 
     public void onLogOut(View view) {
         floatingButton.setVisibility(View.INVISIBLE);
         MenuItem item2 = optionsMenu.findItem(R.id.checkable_menu);
         item2.setVisible(false);
+
         Navigation.findNavController(view).navigate(R.id.action_RoverFeed_to_LogIn);
     }
 
