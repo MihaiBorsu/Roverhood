@@ -1,19 +1,14 @@
 package com.example.roverhood;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.roverhood.databinding.LogInBinding;
 import com.example.roverhood.databinding.RoverFeedBinding;
 
 import java.util.Vector;
@@ -41,7 +36,6 @@ public class RoverFeed extends Fragment {
         populatePosts();
 
         if(main.onlyAnnouncements) {
-            main.floatingButton.setVisibility(View.INVISIBLE);
             for(Post post : announcements) {
                 linearLayout.addView(post.getUserView());
                 linearLayout.addView(post.getDateView());
@@ -52,7 +46,6 @@ public class RoverFeed extends Fragment {
             }
         }
         else {
-            main.floatingButton.setVisibility(View.VISIBLE);
             for(Post post : posts) {
                 linearLayout.addView(post.getUserView());
                 linearLayout.addView(post.getDateView());
@@ -70,12 +63,17 @@ public class RoverFeed extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if(main.onlyAnnouncements) {
+            main.getFloatingButton().setVisibility(View.INVISIBLE);
+        } else {
+            main.getFloatingButton().setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void onDestroyView() {
         main.onFeed = false;
-        main.floatingButton.setVisibility(View.INVISIBLE);
+        main.getFloatingButton().setVisibility(View.INVISIBLE);
         super.onDestroyView();
         binding = null;
 

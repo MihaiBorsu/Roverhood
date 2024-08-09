@@ -1,22 +1,16 @@
 package com.example.roverhood;
 
-import android.app.Notification;
-import android.app.PendingIntent;
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -27,21 +21,15 @@ import com.example.roverhood.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
-    public FloatingActionButton floatingButton;
+    private FloatingActionButton floatingButton;
     private Menu optionsMenu;
     public boolean onlyAnnouncements = false;
     public boolean onFeed = false;
@@ -61,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
         floatingButton = (FloatingActionButton) findViewById(R.id.fab);
-        floatingButton.setVisibility(View.INVISIBLE);
+        getFloatingButton().setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -155,5 +143,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void onRefreshFeed(View view) {
         Navigation.findNavController(view).navigate(R.id.action_RoverFeed_to_loading);
+    }
+
+    public FloatingActionButton getFloatingButton() {
+        return floatingButton;
     }
 }
