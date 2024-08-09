@@ -60,7 +60,6 @@ public class Post {
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
         userParams.setMargins(10*dpValue, 10*dpValue, 10*dpValue, 0);
-
     }
 
     public View getUserView() {
@@ -100,6 +99,16 @@ public class Post {
         dividerView.setCardBackgroundColor(activeFragment.getResources().getColor(R.color.light_purple));
         dividerView.setRadius( 5 * dpValue);
         return dividerView;
+    }
+
+    public View getEndView() {
+        View endView = new View(activeFragment.getActivity());
+        endView.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                100*dpValue)
+        );
+        //endView.setBackground(activeFragment.getResources().getDrawable(R.drawable.bg));
+        return endView;
     }
 
     public boolean isAnnouncement() {

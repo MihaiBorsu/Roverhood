@@ -34,30 +34,34 @@ public class RoverFeed extends Fragment {
         main = (MainActivity) getParentFragment().getActivity();
         main.onFeed = true;
 
+
+
         LinearLayout linearLayout = binding.getRoot().findViewById(R.id.info);
 
         populatePosts();
 
         if(main.onlyAnnouncements) {
+            main.floatingButton.setVisibility(View.INVISIBLE);
             for(Post post : announcements) {
                 linearLayout.addView(post.getUserView());
                 linearLayout.addView(post.getDateView());
                 linearLayout.addView(post.getDescriptionView());
                 linearLayout.addView(post.getImageView());
-                if(post != posts.lastElement()) {
+                if(post != posts.lastElement())
                     linearLayout.addView(post.getDividerView());
-                }
             }
         }
         else {
+            main.floatingButton.setVisibility(View.VISIBLE);
             for(Post post : posts) {
                 linearLayout.addView(post.getUserView());
                 linearLayout.addView(post.getDateView());
                 linearLayout.addView(post.getDescriptionView());
                 linearLayout.addView(post.getImageView());
-                if(post != posts.lastElement()) {
+                if(post != posts.lastElement())
                     linearLayout.addView(post.getDividerView());
-                }
+                else
+                    linearLayout.addView(post.getEndView());
             }
         }
 
@@ -71,6 +75,7 @@ public class RoverFeed extends Fragment {
     @Override
     public void onDestroyView() {
         main.onFeed = false;
+        main.floatingButton.setVisibility(View.INVISIBLE);
         super.onDestroyView();
         binding = null;
 
@@ -108,9 +113,5 @@ public class RoverFeed extends Fragment {
             if(post.isAnnouncement())
                 announcements.add(post);
         }
-    }
-
-    public void resetFeed(){
-
     }
 }

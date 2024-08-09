@@ -41,10 +41,11 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
-    private FloatingActionButton floatingButton;
+    public FloatingActionButton floatingButton;
     private Menu optionsMenu;
     public boolean onlyAnnouncements = false;
     public boolean onFeed = false;
+    private long pressedTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(binding.toolbar);
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        appBarConfiguration = new AppBarConfiguration.Builder(R.id.LogIn, R.id.RoverFeed).build();
+        appBarConfiguration = new AppBarConfiguration.Builder(R.id.LogIn, R.id.RoverFeed, R.id.loading).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
         floatingButton = (FloatingActionButton) findViewById(R.id.fab);
@@ -83,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    floatingButton.setVisibility(View.INVISIBLE);
                     onlyAnnouncements = true;
 
                     if(onFeed) {
@@ -95,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 else {
-                    floatingButton.setVisibility(View.VISIBLE);
                     onlyAnnouncements = false;
 
                     if(onFeed) {
@@ -112,6 +111,24 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void onBackPressed() {
+
+        if (pressedTime + 2000 > System.currentTimeMillis()) {
+            finish();
+        } else {
+            Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
+            if(onFeed) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                Fragment fragment = fragmentManager.getPrimaryNavigationFragment();
+
+                NavHostFragment.findNavController(fragment)
+                        .navigate(R.id.action_RoverFeed_to_loading);
+            }
+        }
+        pressedTime = System.currentTimeMillis();
+    }
+
     public void onLogIn(View view) {
 
         MenuItem item2 = optionsMenu.findItem(R.id.checkable_menu);
@@ -120,11 +137,9 @@ public class MainActivity extends AppCompatActivity {
         final SwitchCompat sw = (SwitchCompat) optionsMenu.findItem(R.id.checkable_menu).getActionView().findViewById(R.id.switch2);
         sw.setChecked(false);
         Navigation.findNavController(view).navigate(R.id.action_LogIn_to_loading);
-        floatingButton.setVisibility(View.VISIBLE);
     }
 
     public void onLogOut(View view) {
-        floatingButton.setVisibility(View.INVISIBLE);
         MenuItem item2 = optionsMenu.findItem(R.id.checkable_menu);
         item2.setVisible(false);
 
@@ -132,10 +147,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onCreatePost(View view) {
-        floatingButton.setVisibility(View.INVISIBLE);
         Button temp = findViewById(R.id.buttonLogOut);
         Navigation.findNavController(temp).navigate(R.id.action_RoverFeed_to_LogIn);
         MenuItem item2 = optionsMenu.findItem(R.id.checkable_menu);
         item2.setVisible(false);
+    }
+
+    public void onRefreshFeed(View view) {
+        Navigation.findNavController(view).navigate(R.id.action_RoverFeed_to_loading);
     }
 }
